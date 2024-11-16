@@ -82,14 +82,16 @@ const Room = () => {
         // Listen for previous drawings from the server
         socket.on("previous-drawings", (previousDrawings) => {
             previousDrawings.forEach((drawing) => {
-                const { x, y, lastPos, color, tool, isCanvasCleared } = drawing;
-                if (isCanvasCleared) {
-                    clearCanvas();
-                } else if (tool === "pencil") {
-                    ctx.current.line(lastPos.x, lastPos.y, x, y, { stroke: color, roughness: 1.5 });
-                } else if (tool === "line") {
-                    ctx.current.line(lastPos.x, lastPos.y, x, y, { stroke: color, roughness: 0, strokeWidth: 5 });
-                }
+                drawing.data.forEach((draw) => {
+                    const { x, y, lastPos, color, tool, isCanvasCleared } = draw;
+                    if (isCanvasCleared) {
+                        clearCanvas();
+                    } else if (tool === "pencil") {
+                        ctx.current.line(lastPos.x, lastPos.y, x, y, { stroke: color, roughness: 1.5 });
+                    } else if (tool === "line") {
+                        ctx.current.line(lastPos.x, lastPos.y, x, y, { stroke: color, roughness: 0, strokeWidth: 5 });
+                    }
+                })
             });
         });
     

@@ -15,9 +15,9 @@ const JoinCreateRoom = () => {
   const router = useRouter();
   const { updateUser } = useUserContext();
 
-  const saveUserInfo = useCallback((userName, roomId) => {
+  const saveUserInfo = useCallback((userName, roomId,host=false) => {
     const userInfo = { userId: getUserId(), userName };
-    updateUser({ ...userInfo, roomId });
+    updateUser({ ...userInfo, roomId,host });
     localStorage.setItem('userInfo', JSON.stringify(userInfo));
     router.push(`/room/${roomId}`);
   }, [updateUser, router]);
@@ -25,7 +25,7 @@ const JoinCreateRoom = () => {
   const handleCreateSubmit = (e) => {
     e.preventDefault();
     if (!name) return toast.dark("Please enter your name!");
-    saveUserInfo(name, roomId);
+    saveUserInfo(name, roomId,true);
   };
 
   const handleJoinSubmit = (e) => {

@@ -1,6 +1,5 @@
 // src/components/Canvas.js
 import React, { useCallback } from 'react';
-
 const Canvas = ({ canvasRef, setIsDrawing, setLastPos, draw, isDrawing }) => {
 
   // Memoized event handlers to prevent re-creation on every render
